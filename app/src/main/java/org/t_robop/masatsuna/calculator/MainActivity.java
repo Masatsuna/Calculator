@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 
     double memo;            //四則演算のボタンが押された時、そのときの画面の値を記憶
 
-    String ope;             //clickEqualを実行する時、四則演算を判別するために使用
+    String ope = "";             //clickEqualを実行する時、四則演算を判別するために使用
 
     double total;           //clickEqualで四則演算をした値
 
@@ -73,6 +73,8 @@ public class MainActivity extends Activity {
         display(".");
     }
 
+
+
     //各数字を文字として引数にして画面に引数を追加表示
     public void display(String num){
 
@@ -124,6 +126,11 @@ public class MainActivity extends Activity {
     //四則演算のボタンが押されたときの処理内容
     public void operation(String mark){
 
+        if(!(ope.equals(""))){
+
+            calculation();
+        }
+
         //opeに四則演算の記号を記憶
         ope = mark;
 
@@ -144,16 +151,22 @@ public class MainActivity extends Activity {
     /*  " = "が押された時の実行内容 */
     public void clickEqual(View view){
 
-        //mTextViewをdisplayと関連付け
-        mTextView = (TextView) findViewById(R.id.display);
+        calculation();
 
-        //四則演算のボタンを押された後の数字をvalueに記憶
+        /*次、数字ボタンを押したとき計算する前のdpの値に追加されないように（" = "を押して計算結果は表示されても、
+        dpには前の画面の数字が記憶されたままになっている）dpを初期化する */
+        dp = "";
+
+        ope = "";
+    }
+
+    //四則演算のボタンが押される前の値memoと押される後の値valueについて計算してディスプレイに表示する
+    public void calculation(){
+
+        mTextView = (TextView) findViewById(R.id.display);
         String nowValue = mTextView.getText().toString();
         double value = Double.parseDouble(nowValue);
 
-        /* opeの内容によって計算を分ける
-           memoは四則演算のボタンを押される前の値、valueは四則演算のボタンを押される後の値
-         */
         switch (ope) {
             case "+":
                 total = memo + value;
@@ -182,11 +195,6 @@ public class MainActivity extends Activity {
         else{
             mTextView.setText(String.valueOf(total));
         }
-
-
-        /*次、数字ボタンを押したとき計算する前のdpの値に追加されないように（" = "を押して計算結果は表示されても、
-        dpには前の画面の数字が記憶されたままになっている）dpを初期化する */
-        dp = "";
     }
 
     //Clearを押したときの処理
@@ -197,6 +205,8 @@ public class MainActivity extends Activity {
         //dpを空にして画面に表示
         dp = "";
         mTextView.setText(String.valueOf(dp));
+
+        ope = "";
     }
 
 }
