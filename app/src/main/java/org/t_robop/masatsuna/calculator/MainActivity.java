@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 
     /* ０〜９または小数点が押された時、それぞれの数字を引数にdisplay()を実行*/
     public void click0(View view) {
-        display("0");
+            display("0");
     }
 
     public void click1(View view) {
@@ -79,8 +79,20 @@ public class MainActivity extends Activity {
         //mTextViewとdisplayのidを関連付け
         mTextView = (TextView) findViewById(R.id.display);
 
-        //すでに画面に表示されてる値（dp）に、引数の値を追加
-        dp += num;
+
+        /*画面で0が連投されたとき、0を一つだけしか表示させない
+        もしdpが０でないまたは、引数が " . " ならば・・
+         */
+        if(!(dp.equals("0")) || num.equals(".")) {
+
+            //すでに画面に表示されてる値（dp）に、引数の値を追加
+            dp += num;
+        }
+        //dpが0で、０〜９のボタンが押されたら
+        else{
+
+            dp = num;
+        }
 
         //dpを画面（mTextView）に表示
         mTextView.setText(String.valueOf(dp));
@@ -108,6 +120,8 @@ public class MainActivity extends Activity {
         operation("÷");
     }
 
+
+    //四則演算のボタンが押されたときの処理内容
     public void operation(String mark){
 
         //opeに四則演算の記号を記憶

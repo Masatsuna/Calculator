@@ -17,10 +17,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/holo_orange_dark"
-        android:gravity="right"
+        android:gravity="bottom|right"
         android:background="#999999"
-        android:layout_above="@+id/buttonClear"
-        android:textSize="80dp" />
+        android:textSize="80dp"
+        android:layout_above="@+id/buttonClear" />
 
     <Button
         android:layout_width="80dp"
