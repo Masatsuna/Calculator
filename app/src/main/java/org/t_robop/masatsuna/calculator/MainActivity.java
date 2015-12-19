@@ -14,11 +14,11 @@ public class MainActivity extends Activity {
 
     TextView mTextView;     //TextView型のmTextView
 
-    double memo;               //四則演算のボタンが押された時、そのときの画面の値を記憶
+    double memo;            //四則演算のボタンが押された時、そのときの画面の値を記憶
 
     String ope;             //clickEqualを実行する時、四則演算を判別するために使用
 
-    double total;              //clickEqualで四則演算をした値
+    double total;           //clickEqualで四則演算をした値
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
