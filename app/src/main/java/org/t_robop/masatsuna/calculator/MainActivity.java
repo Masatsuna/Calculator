@@ -155,8 +155,20 @@ public class MainActivity extends Activity {
                 break;
         }
 
-        //計算結果を画面に表示
-        mTextView.setText(String.valueOf(total));
+        //int型のtotal
+        int intTotal = (int)total;
+
+        /*int型とdouble型の差が０ならint型で、そうでなければdouble型で表示する
+        * 例えばtotalが5.1のとき、intTotalは5となるので二つの差はo.1となるのでdouble型の5.1を表示する
+        * */
+        if(total - intTotal == 0) {
+            //計算結果を画面に表示
+            mTextView.setText(String.valueOf(intTotal));
+        }
+        else{
+            mTextView.setText(String.valueOf(total));
+        }
+
 
         /*次、数字ボタンを押したとき計算する前のdpの値に追加されないように（" = "を押して計算結果は表示されても、
         dpには前の画面の数字が記憶されたままになっている）dpを初期化する */
