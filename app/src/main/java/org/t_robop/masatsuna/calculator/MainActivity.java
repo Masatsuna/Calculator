@@ -8,21 +8,25 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+
+
     String dp = "";         //画面に表示する数字
 
     TextView mTextView;     //TextView型のmTextView
 
-    int memo;               //四則演算のボタンが押された時、そのときの画面の値を記憶
+    double memo;               //四則演算のボタンが押された時、そのときの画面の値を記憶
 
     String ope;             //clickEqualを実行する時、四則演算を判別するために使用
 
-    int total;              //clickEqualで四則演算をした値
+    double total;              //clickEqualで四則演算をした値
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
 
     /* ０〜９または小数点が押された時、それぞれの数字を引数にdisplay()を実行*/
     public void click0(View view) {
@@ -109,10 +113,10 @@ public class MainActivity extends Activity {
         //opeに四則演算の記号を記憶
         ope = mark;
 
-        //mTextViewの値をnowValueにgetTextして、その値をvalueにint型に変換
+        //mTextViewの値をnowValueにgetTextして、valueにnowValueをdouble型に変換してを記憶する
         mTextView = (TextView) findViewById(R.id.display);
         String nowValue = mTextView.getText().toString();
-        int value = Integer.parseInt(nowValue);
+        double value = Double.parseDouble(nowValue);
 
         //memoに画面の値を記憶
         memo = value;
@@ -121,7 +125,9 @@ public class MainActivity extends Activity {
         dp = "";
     }
 
-    /* " = "が押された時の実行内容*/
+
+
+    /*  " = "が押された時の実行内容 */
     public void clickEqual(View view){
 
         //mTextViewをdisplayと関連付け
@@ -129,7 +135,7 @@ public class MainActivity extends Activity {
 
         //四則演算のボタンを押された後の数字をvalueに記憶
         String nowValue = mTextView.getText().toString();
-        int value = Integer.parseInt(nowValue);
+        double value = Double.parseDouble(nowValue);
 
         /* opeの内容によって計算を分ける
            memoは四則演算のボタンを押される前の値、valueは四則演算のボタンを押される後の値
@@ -160,11 +166,11 @@ public class MainActivity extends Activity {
     //Clearを押したときの処理
     public void clickClear(View view){
 
-        TextView input = (TextView) findViewById(R.id.display);
+        mTextView = (TextView) findViewById(R.id.display);
 
         //dpを空にして画面に表示
         dp = "";
-        input.setText(String.valueOf(dp));
+        mTextView.setText(String.valueOf(dp));
     }
 
 }
