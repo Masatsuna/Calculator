@@ -86,14 +86,19 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.buttonMultiply:
-                operation("*");
+                operation("×");
                 break;
 
             case R.id.buttonDivide:
-                operation("/");
+                operation("÷");
                 break;
 
             case R.id.buttonEqual:
+
+                //表示されている演算子を消去
+                mTextView = (TextView) findViewById(R.id.opeDisplay);
+                mTextView.setText("");
+
 
                 calculation();
 
@@ -106,6 +111,11 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.buttonClear:
+
+                //表示されている演算子を消去
+                mTextView = (TextView) findViewById(R.id.opeDisplay);
+                mTextView.setText("");
+
 
                 mTextView = (TextView) findViewById(R.id.display);
 
@@ -153,6 +163,10 @@ public class MainActivity extends Activity {
     //四則演算のボタンが押されたときの処理内容
     public void operation(String mark){
 
+        //画面の左側に演算子を表示
+        mTextView = (TextView) findViewById(R.id.opeDisplay);
+        mTextView.setText(mark);
+
         if(!(ope.equals(""))){
 
             calculation();
@@ -180,6 +194,7 @@ public class MainActivity extends Activity {
         String nowValue = mTextView.getText().toString();
         double value = Double.parseDouble(nowValue);
 
+
         switch (ope) {
             case "+":
                 total = memo + value;
@@ -187,10 +202,10 @@ public class MainActivity extends Activity {
             case "-":
                 total = memo - value;
                 break;
-            case "*":
+            case "×":
                 total = memo * value;
                 break;
-            case "/":
+            case "÷":
                 total = memo / value;
                 break;
         }
