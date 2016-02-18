@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
 
     double total;           //clickEqualで四則演算をした値
 
+    boolean point = false;  //小数点の有無を識別
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,10 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.buttonTen:
-                display(".");
+                if (point == false) {       //小数点が使われてなければ
+                    point =true;            //pointをtrueにして小数点が再度表示されないようにする
+                    display(".");
+                }
                 break;
 
             case R.id.buttonPlus:
@@ -104,9 +109,11 @@ public class MainActivity extends Activity {
 
         /*次、数字ボタンを押したとき計算する前のdpの値に追加されないように（" = "を押して計算結果は表示されても、
         dpには前の画面の数字が記憶されたままになっている）dpを初期化する */
-                dp = "";
+                dp = "0";
 
                 ope = "";
+
+                point = false;
 
                 break;
 
@@ -125,6 +132,8 @@ public class MainActivity extends Activity {
 
                 ope = "";
 
+                point =false;
+
                 break;
         }
     }
@@ -137,7 +146,7 @@ public class MainActivity extends Activity {
 
 
 
-        if (mTextView.length() < 9 || dp.equals("")) {      //入力できる桁数の制限
+        if (mTextView.length() < 8 || dp.equals("")) {      //入力できる桁数の制限
                                                             //演算子のボタンが押された後実行できるようにdpの値でも判別
 
         /*画面で0が連投されたとき、0を一つだけしか表示させない
@@ -183,8 +192,9 @@ public class MainActivity extends Activity {
         //memoに画面の値を記憶
         memo = value;
 
-        //次、数字が入力されたときに現在表記されている数字を消すために、dpを空にする
-        dp = "";
+        //次、数字が入力されたときに現在表記されている数字を消すために、dpを0にする
+        dp = "0";
+        point =false;
     }
 
     //四則演算のボタンが押される前の値memoと押される後の値valueについて計算してディスプレイに表示する
@@ -210,19 +220,27 @@ public class MainActivity extends Activity {
                 break;
         }
 
-        //int型のtotal
-        int intTotal = (int)total;
+        //計算結果が１億を超えた時エラー表示する
+        if(total >= 100000000) {
 
-        /*int型とdouble型の差が０ならint型で、そうでなければdouble型で表示する
-        * 例えばtotalが5.1のとき、intTotalは5となるので二つの差はo.1となるのでdouble型の5.1を表示する
-        * */
-        if(total - intTotal == 0) {
-            //計算結果を画面に表示
-            mTextView.setText(String.valueOf(intTotal));
+            mTextView.setText("Error");
+
         }
-        else{
-            mTextView.setText(String.valueOf(total));
+        else {
+            //int型のtotal
+            int intTotal = (int) total;
+
+             /*int型とdouble型の差が０ならint型で、そうでなければdouble型で表示する
+              * 例えばtotalが5.1のとき、intTotalは5となるので二つの差はo.1となるのでdouble型の5.1を表示する
+            * */
+            if (total - intTotal == 0) {
+                //計算結果を画面に表示
+                mTextView.setText(String.valueOf(intTotal));
+
+            } else {
+
+                mTextView.setText(String.valueOf(total));
+            }
         }
     }
-
 }
