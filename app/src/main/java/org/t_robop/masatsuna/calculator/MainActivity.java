@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 
 
 
-    /* ０〜９または小数点が押された時、それぞれの数字を引数にdisplay()を実行*/
+    /*ボタンを識別して、それぞれのメソッドを実行*/
     public  void onClick(View view) {
 
         switch (view.getId()) {
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
 
                 mTextView = (TextView) findViewById(R.id.display);
 
-                //dpを空にして画面に表示
+                //dpを０にして画面に表示
                 dp = "0";
                 mTextView.setText(String.valueOf(dp));
 
@@ -125,7 +125,11 @@ public class MainActivity extends Activity {
         //mTextViewとdisplayのidを関連付け
         mTextView = (TextView) findViewById(R.id.display);
 
-        if (mTextView.length() < 9 || dp.equals("")) {
+
+
+        if (mTextView.length() < 9 || dp.equals("")) {      //入力できる桁数の制限
+                                                            //演算子のボタンが押された後実行できるようにdpの値でも判別
+
         /*画面で0が連投されたとき、0を一つだけしか表示させない
         もしdpが０でないまたは、引数が " . " ならば・・
          */
@@ -134,6 +138,7 @@ public class MainActivity extends Activity {
                 //すでに画面に表示されてる値（dp）に、引数の値を追加
                 dp += num;
             }
+
             //dpが0で、０〜９のボタンが押されたら
             else {
 
